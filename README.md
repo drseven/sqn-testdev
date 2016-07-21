@@ -1,38 +1,23 @@
-# \<garuda-demo\>
+# SMN-000 (Beta-Test)
 
 
+## Installation (development mode)
+Pull this repository or download this master branch as zip
 
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
-
-## Viewing Your Application
-
+### 1. Run npm install to download all nodejs package dependencise
 ```
-$ polymer serve
+npm install
 ```
 
-## Building Your Application
-
+### 2. Run bower install to download all library dependencise
 ```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
+bower install
 ```
 
-## Running Tests
-
+### 3. Run apps!
 ```
-$ polymer test
+node index.js
 ```
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+
+Author: Donny Rhomanzah - Garuda3Indonesia@2016
