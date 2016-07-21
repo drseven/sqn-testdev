@@ -1,0 +1,38 @@
+<link rel="import" href="/bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
+
+<polymer-element name="my-toolbar">
+  <template>
+    <style>
+      :host {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        top: 0px;
+        left: 0px;
+      }
+      #core_toolbar {
+        right: 0px;
+        left: 0px;
+        color: rgb(255, 255, 255);
+        fill: rgb(255, 255, 255);
+        top: 0px;
+        position: absolute;
+        background-color: rgb(79, 125, 201);
+      }
+    </style>
+    <core-toolbar id="core_toolbar">
+      <core-icon-button icon="menu" id="core_icon_button"></core-icon-button>
+      <div align="Center" id="div" flex>SMN-001 - Develompment Run</div>
+    </core-toolbar>
+  </template>
+
+  <script>
+
+    Polymer({
+
+    });
+
+  </script>
+</polymer-element>

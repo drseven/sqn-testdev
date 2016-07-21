@@ -1,0 +1,299 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/chart-elements/chart-line.html">
+<script type="text/javascript" src="/gcomponent/ggauge/loader.js"></script>
+<script type="text/javascript" src="/bower_components/canv-gauge/gauge.min.js"></script>
+<script type="text/javascript" src="/gcomponent/js/garuda-app.js"></script>
+<script type="text/javascript" src="/gcomponent/js/gauge.js"></script>
+<script type="text/javascript" src="/bower_components/Chart.js/dist/Chart.js"></script>
+<dom-module id="garuda-app">
+  <style is="custom-style">
+    #container {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      color: white;
+      background-color: #212121;
+    }
+
+    .top-container {
+      background-color: #212121;
+      padding: 30px;
+      border: solid #676767 5px;
+      border-style: outset;
+      border-radius: 25px;
+    }
+
+    .bottom-container {
+      padding: 15px 0px;
+    }
+
+    .img-container {
+      border: solid white 5px;
+      border-style: ridge;
+      border-radius: 25px;
+
+      background: url(/res/img/petani.jpg) no-repeat center;
+      background-size: cover;
+    }
+
+    #gauge-container {
+      position: relative;
+    }
+
+    #gauge-container::before {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      border: solid #676767;
+      border-width: 5px;
+      border-style: outset;
+      border-radius: 25px;
+      width: 100%;
+      height: 100%;
+    }
+
+    #gauge-label {}
+
+    .profile-container {
+      padding: 5px;
+    }
+
+    .profile-grid {
+      font-size: 1.5vw;
+      width: 100%;
+    }
+
+    .profile-r {
+      padding: 5px 5px 0px 0px;
+      font-weight: bolder;
+      color: burlywood;
+    }
+
+    .buttonType{
+      height: 10%;
+      margin: 10% 0;
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+
+    .price-container{
+      font-size: 4em;
+    }
+
+    .type-label{
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .price-left{
+      color: burlywood;
+    }
+
+    .price-right{
+      text-align: right;
+    }
+
+    tr.sumrow{
+      border-bottom:2px solid white;
+    }
+
+    #buttonTypeContainer{
+      border-left: solid 1px white;
+    }
+
+    /**************************** layout **************************************/
+
+    .flex-h {
+      @apply(--layout-horizontal);
+    }
+
+    .flex-v {
+      @apply(--layout-vertical);
+    }
+
+    .flex-align-center-v {
+      @apply(--layout-center);
+    }
+
+    .flex-this-one {
+      @apply(--layout-flex);
+    }
+
+    .flex-this-two {
+      @apply(--layout-flex-2);
+    }
+
+    .flex-this-three {
+      @apply(--layout-flex-3);
+    }
+
+    .block {
+      @apply(--layout-block);
+    }
+
+    .invisible {
+      @apply(--layout-invisible);
+    }
+
+    .relative {
+      @apply(--layout-relative);
+    }
+
+    .fit {
+      @apply(--layout-fit);
+    }
+
+    .full-h {
+      height: 100%;
+    }
+
+    .full-w {
+      width: 100%;
+    }
+    /*PAPER BUTTON*/
+
+    paper-button.act {
+      background-color: var(--paper-green-500);
+      color: white;
+    }
+
+    paper-button.nac {
+      background-color: var(--paper-red-500);
+      color: white;
+    }
+
+    paper-button.custom {
+      --paper-button-ink-color: var(--paper-pink-a200);
+      --paper-button-flat-keyboard-focus: {
+        background-color: var(--paper-pink-a200);
+        color: white !important;};
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;};
+    }
+  </style>
+  <template>
+    <div id="container">
+      <div class="flex-v full-h" style="padding:1%;">
+        <div class="flex-this-two flex-h top-container">
+          <div class="flex-this-one img-container">
+          </div>
+          <div class="flex-this-two profile-container" style="padding: 0px 10px;">
+            <table class="profile-grid">
+              <tr style="font-size:2em;">
+                <td colspan="2" style="border-bottom: 3px solid white;">
+                  #0291-002
+                </td>
+              </tr>
+              <tr>
+                <td class="profile-r">name</td>
+                <td>Bpk. Kusnadi</td>
+              </tr>
+              <tr>
+                <td class="profile-r">alamat</td>
+                <td>Dusun Margamukti</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>RT/RW 003/012</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Cimalaka, Sumedang</td>
+              </tr>
+              <tr>
+                <td>
+                  <br>
+                </td>
+              </tr>
+              <tr>
+                <td class="profile-r">tanggal terdaftar</td>
+                <td>22 Mei 2014</td>
+              </tr>
+              <tr>
+                <td class="profile-r">transaksi terakhir</td>
+                <td>8 Juni 2016</td>
+              </tr>
+              <tr>
+                <td class="profile-r">total transaksi</td>
+                <td>34 kali (209 kg)</td>
+              </tr>
+            </table>
+          </div>
+          <div id="chart-container" class="flex-this-three" style="border-left:solid 4px white">
+            <div id="chart" style="width:300px;height:100px;">
+                <canvas id="myChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="flex-this-three flex-h bottom-container">
+          <div class="flex-this-three flex-h flex-align-center-v">
+            <div id="gauge-container" class="flex-this-three flex-h">
+              <div id="divgauge" class="flex-this-one flex-h flex-align-center-v">
+                  <canvas id="gauge"></canvas>
+              </div>
+              <div class="flex-this-two flex-h flex-align-center-v">
+                <div class="flex-this-one flex-v" style="padding-right:10px">
+                  <table style="width:100%;border-collapse: collapse; ">
+                    <tr style="font-size:2em">
+                      <td colspan="3">TYPE A</td>
+                    </tr>
+                    <tr style="font-size:2em">
+                      <td class="price-left">Harga</td>
+                      <td class="price-right">5000</td>
+                      <td></td>
+                    </tr>
+                    <tr class="sumrow" style="font-size:2em;">
+                      <td class="price-left">Berat (kg)</td>
+                      <td class="price-right">{{wxd}}</td>
+                      <td style="text-align:center">+</td>
+                    </tr>
+                    <tr class="price-container">
+                      <td class="price-left">Total</td>
+                      <td class="price-right"><a id="price">50500</a></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </div>
+                <div id="buttonTypeContainer" class="flex-h flex-align-center-v">
+                  <div class="flex-v" style="padding:10px;">
+                    <paper-button class="buttonType" raised style="background-color:rgba(255, 99, 132, 1)"> A </paper-button>
+                    <paper-button class="buttonType" raised style="background-color:rgba(54, 162, 235, 1)"> B </paper-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-this-one">
+            <div class="">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'garuda-app',
+      attached: function() {
+        fixlayout();
+        gauge3();
+        loadHistoryTransaksi();
+      },
+      ready: function (){
+      },
+      testz: function(e){
+        console.console.log(e);
+      }
+    });
+
+  </script>
+</dom-module>
