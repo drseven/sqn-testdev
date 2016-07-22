@@ -1,0 +1,75 @@
+<dom-module id="price-display">
+  <style>
+    .price-container {
+      font-size: 4em;
+    }
+
+    .type-label {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .price-left {
+      color: burlywood;
+    }
+
+    .price-right {
+      text-align: right;
+    }
+
+    tr.sumrow {
+      border-bottom: 2px solid white;
+    }
+  </style>
+  <template>
+    <table style="width:100%;border-collapse: collapse; ">
+      <tr style="font-size:2em">
+        <td colspan="3">{{ftdtitle}}</td>
+      </tr>
+      <tr style="font-size:2em">
+        <td class="price-left">Harga</td>
+        <td class="price-right">{{ftdbaseprice}}</td>
+        <td></td>
+      </tr>
+      <tr class="sumrow" style="font-size:2em;">
+        <td class="price-left">Berat (kg)</td>
+        <td class="price-right">{{ftdweight}}</td>
+        <td style="text-align:center">+</td>
+      </tr>
+      <tr class="price-container">
+        <td class="price-left">Total</td>
+        <td class="price-right"><a id="price">{{ftdgrandtotal}}</a></td>
+        <td></td>
+      </tr>
+    </table>
+  </template>
+  <script>
+    Polymer({
+      is: 'price-display',
+      properties: {
+        title: String,
+        baseprice: Number,
+        weight: Number,
+        grandtotal: Number
+      },
+      observers: [
+        '_propsChange(weight, grandtotal)',
+        '_priceChange(title, baseprice)'
+      ],
+      ready: function(){
+        this.ftdtitle=""
+        this.ftdbaseprice="";
+        this.ftdweight="0";
+        this.ftdgrandtotal="0";
+      },
+      _propsChange(weight, grandtotal){
+        this.ftdweight=accounting.formatMoney(weight, "", 2, ",", ".");
+        this.ftdgrandtotal=accounting.formatMoney(grandtotal, "", 0, ",", ".");
+      },
+      _priceChange(title, baseprice){
+        this.ftdbaseprice=accounting.formatMoney(baseprice, "", 0, ",", ".");
+        this.ftdtitle="Type "+title;
+      }
+    });
+  </script>
+</dom-module>

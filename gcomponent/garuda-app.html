@@ -3,6 +3,8 @@
 <link rel="import" href="/bower_components/iron-image/iron-image.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/chart-elements/chart-line.html">
+<link rel="import" href="price-display.html">
+<script type="text/javascript" src="/bower_components/accounting.js/accounting.min.js"></script>
 <script type="text/javascript" src="/gcomponent/ggauge/loader.js"></script>
 <script type="text/javascript" src="/bower_components/canv-gauge/gauge.min.js"></script>
 <script type="text/javascript" src="/gcomponent/js/garuda-app.js"></script>
@@ -83,29 +85,17 @@
       font-size: 1.5em;
     }
 
-    .price-container{
-      font-size: 4em;
-    }
-
-    .type-label{
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
-
-    .price-left{
-      color: burlywood;
-    }
-
-    .price-right{
-      text-align: right;
-    }
-
-    tr.sumrow{
-      border-bottom:2px solid white;
-    }
 
     #buttonTypeContainer{
       border-left: solid 1px white;
+    }
+
+    #btn_A{
+      background-color:rgba(255, 99, 132, 1);
+    }
+
+    #btn_B{
+      background-color:rgba(54, 162, 235, 1);
     }
 
     /**************************** layout **************************************/
@@ -241,31 +231,12 @@
               </div>
               <div class="flex-this-two flex-h flex-align-center-v">
                 <div class="flex-this-one flex-v" style="padding-right:10px">
-                  <table style="width:100%;border-collapse: collapse; ">
-                    <tr style="font-size:2em">
-                      <td colspan="3">TYPE A</td>
-                    </tr>
-                    <tr style="font-size:2em">
-                      <td class="price-left">Harga</td>
-                      <td class="price-right">5000</td>
-                      <td></td>
-                    </tr>
-                    <tr class="sumrow" style="font-size:2em;">
-                      <td class="price-left">Berat (kg)</td>
-                      <td class="price-right">{{wxd}}</td>
-                      <td style="text-align:center">+</td>
-                    </tr>
-                    <tr class="price-container">
-                      <td class="price-left">Total</td>
-                      <td class="price-right"><a id="price">50500</a></td>
-                      <td></td>
-                    </tr>
-                  </table>
+                  <price-display id="keranjang" baseprice=0 weight=0 grandtotal=0></price-display>
                 </div>
                 <div id="buttonTypeContainer" class="flex-h flex-align-center-v">
                   <div class="flex-v" style="padding:10px;">
-                    <paper-button class="buttonType" raised style="background-color:rgba(255, 99, 132, 1)"> A </paper-button>
-                    <paper-button class="buttonType" raised style="background-color:rgba(54, 162, 235, 1)"> B </paper-button>
+                    <paper-button class="buttonType" id="btn_A" on-click="callA" raised > A </paper-button>
+                    <paper-button class="buttonType" id="btn_B" on-click="callB" raised > B </paper-button>
                   </div>
                 </div>
               </div>
@@ -273,7 +244,7 @@
           </div>
           <div class="flex-this-one">
             <div class="">
-
+              <!-- button menu -->
             </div>
           </div>
         </div>
@@ -287,11 +258,21 @@
         fixlayout();
         gauge3();
         loadHistoryTransaksi();
+        $("#btn_A").click();
       },
       ready: function (){
       },
-      testz: function(e){
-        console.console.log(e);
+      callA: function(e){
+        console.log("A");
+        $("#btn_B").attr("style", "opacity: 0.2;");
+        $("#btn_A").attr("style", "opacity: 1;");
+        switchType("A");
+      },
+      callB: function(e){
+        console.log("B");
+        $("#btn_B").attr("style", "opacity: 1;");
+        $("#btn_A").attr("style", "opacity: 0.2;");
+        switchType("B");
       }
     });
 

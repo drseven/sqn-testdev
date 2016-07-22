@@ -62,8 +62,7 @@ function gauge3() {
       var weight = Math.random() * 1000;
       gauge.setValue(weight);
       updateKeranjang(weight.toFixed(2));
-      testz("a");
-      }, 1000);
+    }, 3000);
   };
 
   gauge.draw();
